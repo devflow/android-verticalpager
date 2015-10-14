@@ -1,3 +1,5 @@
+## couple page. fix bug
+
 ## VerticalPager
 
 Intended as a ViewGroup that mimics the UIScrollView vertical paging functionality of iOS.
