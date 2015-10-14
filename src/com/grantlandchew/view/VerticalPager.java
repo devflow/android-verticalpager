@@ -235,19 +235,19 @@ public class VerticalPager extends ViewGroup {
     }
 
     int pageHeightPadding() {
-        return ((getMeasuredHeight() - pageHeight) / 2);
+        return 0;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        pageHeight = getMeasuredHeight();
+        pageHeight = getMeasuredHeight() / 2;
 
         final int count = getChildCount();
         for (int i = 0; i < count; i++) {
             getChildAt(i).measure(MeasureSpec.makeMeasureSpec(getMeasuredWidth(), MeasureSpec.EXACTLY),
-            		MeasureSpec.makeMeasureSpec(pageHeight, MeasureSpec.UNSPECIFIED));
+            		MeasureSpec.makeMeasureSpec(pageHeight, MeasureSpec.EXACTLY));
         }
 
         if (mFirstLayout) {
@@ -267,8 +267,8 @@ public class VerticalPager extends ViewGroup {
             if (child.getVisibility() != View.GONE) {
             	if(i == 0) {
             		child.getHeight();
-                    child.layout(0, measuredHeight, right - left, measuredHeight + (int)(pageHeight*.96));
-                    measuredHeight +=  (pageHeight*.96);
+                    child.layout(0, measuredHeight, right - left, measuredHeight + pageHeight);
+                    measuredHeight += pageHeight;
             	} else {
             		height = pageHeight * (int)Math.ceil((double)child.getMeasuredHeight()/(double)pageHeight);
             		height = Math.max(pageHeight, height);
